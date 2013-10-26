@@ -9,24 +9,29 @@ import com.google.inject.Inject;
 @Path("/")
 public class NineManMorrisServlet {
 
+	IGson _gson;
+	IBrain _boardFactory;
+	
 	@Inject
-	public NineManMorrisServlet()
+	public NineManMorrisServlet(IGson gson, IBrain boardFactory)
 	{
+		_gson = gson;
+		_boardFactory = boardFactory;
 	}
-
+	
 	@GET
 	@Path("board")
 	public String retrieveBoard()
 	{
-		return "current";
+		Board currentBoard = _boardFactory.getCurrent();
+		return _gson.toJson(currentBoard);
 	}
 
 	@POST
 	@Path("move")
 	public String move(String location)
 	{
-		if (location.equals("valid move"))
-			return "new board";
-		return "old board";
+		Board currentBoard = _boardFactory.getCurrent();
+		return _gson.toJson(currentBoard);
 	}
 }

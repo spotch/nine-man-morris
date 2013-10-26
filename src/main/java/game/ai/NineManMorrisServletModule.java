@@ -9,6 +9,8 @@ public class NineManMorrisServletModule extends ServletModule {
 	protected void configureServlets()
 	{
 		bind(NineManMorrisServlet.class);
+		bind(IGson.class).to(Gson.class);
+		bind(IBrain.class).to(Brain.class);
 		serve("/*").with(GuiceContainer.class);
 	}
 }
